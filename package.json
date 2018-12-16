@@ -1,62 +1,32 @@
 {
-    "name": "node-red-node-web-nodes",
-    "version": "0.4.0",
-    "description": "A collection of Node-RED nodes for popular web services.",
-    "homepage": "http://nodered.org",
+    "name"          : "node-red-node-google",
+    "version"       : "0.1.4",
+    "description"   : "A set of Node-RED nodes to access various Google services",
+    "dependencies"  : {
+        "clone": "^0.1.11",
+        "minimatch": "^2.0.4",
+        "request":"~2.83.0",
+        "backoff":"~2.5.0"
+      },
+    "repository" : {
+        "type":"git",
+        "url":"https://github.com/node-red/node-red-web-nodes/tree/master/google"
+    },
     "license": "Apache-2.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/node-red/node-red-web-nodes.git"
+    "keywords": [ "node-red", "google", "calendar", "directions", "places", "geocoding", "google plus" ],
+    "node-red"      : {
+        "nodes"     : {
+            "google plus": "plus.js",
+            "google places": "places.js",
+            "google-api-config": "google.js",
+            "google geocoding": "geocoding.js",
+            "google directions": "directions.js",
+            "google calendar": "calendar.js"
+        }
     },
-    "scripts": {
-        "test": "grunt"
-    },
-    "keywords": [
-        "node-red",
-        "nodes",
-        "flow",
-        "flickr",
-        "pinboard",
-        "dropbox",
-        "aws",
-        "s3",
-        "swarm",
-        "foursquare",
-        "instagram",
-        "google",
-        "tfl",
-        "strava",
-        "forecastio",
-        "jawbone"
-    ],
-    "devDependencies": {
-        "aws-sdk": "~2.293.0",
-        "backoff": "^2.5.0",
-        "clone": "~2.1.2",
-        "dropbox": "^2.5.10",
-        "fs-extra": "~7.0.0",
-        "grunt": "^1.0.3",
-        "grunt-cli": "^1.2.0",
-        "grunt-contrib-jshint": "^1.1.0",
-        "grunt-jscs": "^3.0.1",
-        "grunt-lint-inline": "^1.0.0",
-        "grunt-simple-mocha": "^0.4.*",
-        "instagram-node": "^0.5.8",
-        "is-utf8": "^0.2.1",
-        "minimatch": "^3.0.4",
-        "mocha": "^5.2.0",
-        "nock": "^9.6.1",
-        "node-red": "*",
-        "node-red-node-test-helper": "~0.1.8",
-        "oauth": "~0.9.11",
-        "request": "^2.88.0",
-        "should": "^13.2.3",
-        "should-sinon": "^0.0.6",
-        "sinon": "~6.1.5",
-        "supertest": "^3.1.0",
-        "xml2js": "^0.4.0"
-    },
-    "engines": {
-        "node": ">=6.0.0"
+    "author": {
+        "name": "Cody Walker",
+        "email": "cmwalker@us.ibm.com",
+        "url": "http://nodered.org"
     }
 }
