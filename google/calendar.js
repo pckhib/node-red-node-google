@@ -166,7 +166,7 @@ module.exports = function(RED) {
                     node.status({fill:"red",shape:"ring",text:"calendar.status.invalid-calendar"});
                     return;
                 }
-                nextStartingEvent(node, cal, msg, function(err, ev) {
+                nextEvents(node, cal, msg, 10, function(err, ev) {
                     if (err) {
                         node.error(RED._("calendar.error.error", {error:err.toString()}),msg);
                         node.status({fill:"red",shape:"ring",text:"calendar.status.failed"});
@@ -271,6 +271,37 @@ module.exports = function(RED) {
                 } else {
                     cb(null, ev);
                 }
+            }
+        };
+        node.google.request(request, handle_response);
+    }
+
+    function nextEvents(node, cal, msg, count, after, cb) {
+        if (typeof after === 'function') {
+            cb = after;
+            after = new Date();
+        }
+
+        var request = {
+            url: 'https://www.googleapis.com/calendar/v3/calendars/'+cal.id+'/events'
+        };
+        request.qs = {
+            maxResults: count,
+            orderBy: 'startTime',
+            singleEvents: true,
+            showDeleted: false,
+            timeMin: after.toISOString()
+        };
+        if (msg.payload) {
+            request.qs.q = RED.util.ensureString(msg.payload);
+        }
+        var handle_response = function(err, data) {
+            if (err) {
+                cb(RED._("calendar.error.error", {error:err.toString()}), null);
+            } else if (data.error) {
+                cb(RED._("calendar.error.error-details", {code:data.error.code, message:JSON.stringify(data.error.message)}), null);
+            } else {
+                cb(null, data.items);
             }
         };
         node.google.request(request, handle_response);
